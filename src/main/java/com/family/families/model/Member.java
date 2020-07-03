@@ -1,17 +1,31 @@
 package com.family.families.model;
 
 import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
-@Getter @Setter
+@Data
+@Entity
 public class Member {
-
-    Family family;
+    @Id
+    @GeneratedValue
+    Long id;
+    @NotBlank
+    Long familyId;
+    @NotBlank
     String firstName;
+    @NotBlank
     String middleName;
-    Member father;
-    Member mother;
-    Member spouse;
+    @NotBlank
+    Long fatherId;
+    @NotBlank
+    Long motherId;
+    Long spouseId;
+    @NotBlank
     Date birthDate;
 
 
