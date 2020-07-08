@@ -1,10 +1,12 @@
 package com.family.families.controller;
 
+import com.family.families.exceptions.FamilyNotFoundException;
 import com.family.families.model.Family;
-import com.family.families.repository.FamilyRepository;
+import com.family.families.service.FamilyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -12,10 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class FamilyController {
 
     @Autowired
-    FamilyRepository familyRepository;
+    FamilyService familyService;
 
     @GetMapping("/family/{id}")
-    public Family getFamily(@PathVariable(value = "id")Long id) throws Exception{
-        return familyRepository.findById(id).orElseThrow(() -> new Exception("implement"));
+    public Family getFamily(@PathVariable(value = "id")Long id) throws FamilyNotFoundException{
+        return familyService.getFamily(id);
+    }
+
+    @PostMapping("/family")
+    public void createFamily(Family family){
+
     }
 }

@@ -1,12 +1,13 @@
 package com.family.families.model;
 
+import com.family.families.exceptions.FamilyCannotBeDeleted;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,9 +15,21 @@ public class Family {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    @NotBlank
+
+    @NotNull
     String name;
-    @NotBlank
+
+    @NotNull
     String country;
 
+    @OneToMany(mappedBy = "family", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Member> members = new ArrayList<>();
+
+    @PreRemove
+    private void preRemove() throws FamilyCannotBeDeleted {
+        if(!members.isEmpty()){
+            throw new FamilyCannotBeDeleted();
+        }
+    }
 }

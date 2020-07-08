@@ -2,30 +2,37 @@ package com.family.families.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
 @Entity
 public class Member {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    @NotBlank
-    Long familyId;
-    @NotBlank
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    Family family;
+
+    @NotNull
     String firstName;
-    @NotBlank
+
+    @NotNull
     String middleName;
-    @NotBlank
-    Long fatherId;
-    @NotBlank
-    Long motherId;
-    Long spouseId;
-    @NotBlank
+
+    @OneToOne
+    Member father;
+
+    @OneToOne
+    Member mother;
+
+    @OneToOne
+    Member spouse;
+
+    @NotNull
     Date birthDate;
 
 
