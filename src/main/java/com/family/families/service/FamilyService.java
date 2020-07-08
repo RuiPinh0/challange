@@ -16,9 +16,11 @@ public interface FamilyService {
 
     Family getFamilyWithHigherGrowingRate();
 
-    void createFamily(Family family);
+    Family createFamily(Family family);
 
     void updateFamily(Family family);
 
-    void deleteFamily(Family family);
+    Family patchFamily(Family family);
+
+    void deleteFamily(Long id);
 }

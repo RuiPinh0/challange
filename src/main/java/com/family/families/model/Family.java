@@ -11,16 +11,18 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "family")
 public class Family {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    @Column(name = "id")
+    private Long id;
 
     @NotNull
-    String name;
+    private String name;
 
     @NotNull
-    String country;
+    private String country;
 
     @OneToMany(mappedBy = "family", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -31,5 +33,9 @@ public class Family {
         if(!members.isEmpty()){
             throw new FamilyCannotBeDeleted();
         }
+    }
+
+    public String toString(){
+        return getId().toString();
     }
 }
