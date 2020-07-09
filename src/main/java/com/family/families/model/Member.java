@@ -1,13 +1,12 @@
 package com.family.families.model;
 
+import com.family.families.exceptions.MemberCannotBeDeletedException;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,10 +29,15 @@ public class Member {
     private Long familyId;
 
     @NotNull
+    @Column(name="first_name")
     private String firstName;
 
-    @NotNull
+    @Column(name="middle_name")
     private String middleName;
+
+    @NotNull
+    @Column(name="last_name")
+    private String lastName;
 
     @ManyToOne(optional=true, fetch=FetchType.EAGER, targetEntity = Member.class)
     @JoinColumn(name = "father_id", insertable = false, updatable = false)
@@ -61,13 +65,21 @@ public class Member {
 
     @NotNull
     @JsonFormat(pattern="yyyy-MM-dd", timezone="Europe/London")
+    @Column(name="birth_date")
     private Date birthDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "father")
     @JsonIgnore
-    private List<Member> fatherChild = new ArrayList<>();
+    private List<Member> fatherChild;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy="mother")
     @JsonIgnore
-    private List<Member> motherChild = new ArrayList<>();
+    private List<Member> motherChild;
+
+    @PreRemove
+    private void preRemove() throws MemberCannotBeDeletedException {
+        if(!fatherChild.isEmpty() || !motherChild.isEmpty()){
+            throw new MemberCannotBeDeletedException();
+        }
+    }
 }

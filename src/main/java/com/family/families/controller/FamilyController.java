@@ -1,6 +1,6 @@
 package com.family.families.controller;
 
-import com.family.families.exceptions.FamilyCannotBeDeleted;
+import com.family.families.exceptions.FamilyCannotBeDeletedException;
 import com.family.families.exceptions.FamilyNotFoundException;
 import com.family.families.exceptions.InvalidCountryException;
 import com.family.families.model.Family;
@@ -40,7 +40,7 @@ public class FamilyController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteFamily(@PathVariable(value = "id")Long id) throws FamilyNotFoundException, FamilyCannotBeDeleted {
+    public void deleteFamily(@PathVariable(value = "id")Long id) throws FamilyNotFoundException, FamilyCannotBeDeletedException {
         familyService.deleteFamily(id);
     }
 

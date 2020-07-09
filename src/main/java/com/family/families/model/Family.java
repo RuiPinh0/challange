@@ -1,6 +1,6 @@
 package com.family.families.model;
 
-import com.family.families.exceptions.FamilyCannotBeDeleted;
+import com.family.families.exceptions.FamilyCannotBeDeletedException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -29,9 +29,9 @@ public class Family {
     private List<Member> members = new ArrayList<>();
 
     @PreRemove
-    private void preRemove() throws FamilyCannotBeDeleted {
+    private void preRemove() throws FamilyCannotBeDeletedException {
         if(!members.isEmpty()){
-            throw new FamilyCannotBeDeleted();
+            throw new FamilyCannotBeDeletedException();
         }
     }
 

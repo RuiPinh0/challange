@@ -1,6 +1,8 @@
 package com.family.families.controller;
 
 import com.family.families.exceptions.MemberNotFoundException;
+import com.family.families.model.HighestFamilyAccAge;
+import com.family.families.model.HighestFamilyRatio;
 import com.family.families.model.Member;
 import com.family.families.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +37,31 @@ public class MemberController {
 
     @PutMapping
     public void updateMember(@Valid @RequestBody Member member) throws MemberNotFoundException {
-        memberService.updateMember(member);
+        memberService.putMember(member);
     }
 
     @PatchMapping
     public Member patchMember(@Valid @RequestBody Member member) throws MemberNotFoundException {
-        return memberService.updateMember(member);
+        return memberService.patchMember(member);
     }
     @DeleteMapping
     public void deleteMember(@Valid @RequestBody Member member) throws MemberNotFoundException {
         memberService.deleteMember(member);
     }
-    
+
+    @GetMapping("/higherage")
+    public List<HighestFamilyAccAge> getFamilyHigherAccumulatedAge() throws MemberNotFoundException {
+        return memberService.getFamilyHigherAccumulatedAge();
+    }
+
+
+    @GetMapping("/ratio")
+    public List<HighestFamilyRatio> getFamilyHigherAgeRatio() throws MemberNotFoundException {
+        return memberService.getFamilyHigherAgeRatio();
+    }
+
+    @GetMapping("/duplicates")
+    public List<Member> getPossibleDuplicates() throws MemberNotFoundException {
+        return memberService.getPossibleDuplicates();
+    }
 }

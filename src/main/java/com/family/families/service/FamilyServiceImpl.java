@@ -37,19 +37,7 @@ public class FamilyServiceImpl implements FamilyService{
     }
 
     @Override
-    public Family getFamilyWithHigherAccumulatedAge() {
-       // familyRepository.findBy
-        return null;
-    }
-
-    @Override
-    public Family getFamilyWithHigherGrowingRate() {
-        return null;
-    }
-
-
-    @Override
-    public Family createFamily(Family family) {
+    public Family   createFamily(Family family) {
         if (Utils.validateIsoCountry2(family.getCountry())){
             return familyRepository.save(family); }
         else{

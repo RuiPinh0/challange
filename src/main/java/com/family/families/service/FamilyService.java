@@ -12,10 +12,6 @@ public interface FamilyService {
 
     List<Family> getFamiliesByCountryCode(String countryCode);
 
-    Family getFamilyWithHigherAccumulatedAge();
-
-    Family getFamilyWithHigherGrowingRate();
-
     Family createFamily(Family family);
 
     void updateFamily(Family family);

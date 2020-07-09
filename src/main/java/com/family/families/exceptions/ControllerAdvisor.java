@@ -53,7 +53,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler(FamilyCannotBeDeleted.class)
+    @ExceptionHandler(FamilyCannotBeDeletedException.class)
     public ResponseEntity<Object> handleFamilyCannotBeDeleted(
             FamilyNotFoundException ex, WebRequest request) {
 

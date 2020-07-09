@@ -13,7 +13,4 @@ public interface FamilyRepository extends JpaRepository<Family, Long>, JpaSpecif
 
     List<Family> findByCountry(String countryCode);
 
-   /* @Query("select * from Family f, Member m group by f, having max(sum(m.))")
-    Family findFamilyBy
-    getFamilyWithHigherAccumulatedAge*/
 }
